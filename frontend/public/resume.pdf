@@ -1,0 +1,50 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 400 >>
+stream
+BT
+/F1 18 Tf
+50 720 Td
+(Arun Pandian - Full-Stack Software Engineer) Tj
+/F1 11 Tf
+0 -26 Td
+(Email: arunpandian.developer@gmail.com | Location: Coimbatore, Tamil Nadu, India) Tj
+0 -18 Td
+(GitHub: https://github.com/arun-pandian-p | LinkedIn: https://linkedin.com/in/arunpandian-developer/) Tj
+0 -30 Td
+(Education: B.Tech Artificial Intelligence & Data Science, Class of 2026) Tj
+0 -25 Td
+(Core Competencies: React, TypeScript, Java 21, Spring Boot 3, REST APIs, PostgreSQL) Tj
+0 -25 Td
+(Experience: Software Engineer Intern @ Carpe Diem Tech Innovations [Jan-Mar 2026]) Tj
+0 -25 Td
+(Featured Projects: Zappy [Restaurant SaaS], Ashnora [Restaurant POS], Ap Desktop [Placement Platform]) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000244 00000 n 
+0000000695 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+764
+%%EOF
+

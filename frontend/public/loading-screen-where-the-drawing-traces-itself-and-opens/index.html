@@ -1,0 +1,101 @@
+<!doctype html>
+<!--
+  "The loading screen where the drawing traces itself and opens" from Animorio · https://animorio.com
+  License: free on your own sites and your clients’ sites, paid work included.
+  Not for resale, redistribution, templates or code collections · https://animorio.com/en/license/
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The loading screen where the drawing traces itself and opens</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/mona-sans@5.3.0/index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/geist-mono@5.3.0/index.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- the loading screen of Egret, an invented AI agent for architects -->
+  <div class="pagina">
+    <header class="testa">
+      <a class="marchio" href="#" aria-label="Egret, home">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18 L11 6 L13 10 L21 4" /><path d="M11 6 L9 19" /></svg>
+        <span>Egret</span>
+      </a>
+      <span class="stato mono" data-state aria-live="polite"><span class="stato__dentro" data-state-in>Loading</span></span>
+    </header>
+
+    <main class="palco">
+      <div class="disegno" data-sheet>
+        <svg class="disegno__linee" data-lines viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></svg>
+        <svg class="disegno__pieno" data-full viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <defs>
+            <linearGradient id="vetro" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#9ea2a0" />
+              <stop offset=".55" stop-color="#c3c6c2" />
+              <stop offset="1" stop-color="#d9dbd6" />
+            </linearGradient>
+            <linearGradient id="dentro" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7c7f7c" />
+              <stop offset="1" stop-color="#b9bbb6" />
+            </linearGradient>
+            <pattern id="tratteggio" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="6" stroke="#282828" stroke-width=".7" stroke-opacity=".55" />
+            </pattern>
+            <pattern id="cemento" width="14" height="14" patternUnits="userSpaceOnUse">
+              <rect width="14" height="14" fill="#e3e1d9" />
+              <circle cx="3" cy="4" r=".6" fill="#b9b7ae" /><circle cx="10" cy="9" r=".5" fill="#c4c2b9" /><circle cx="6" cy="12" r=".4" fill="#aeaca4" />
+            </pattern>
+          </defs>
+          <g data-fills></g>
+          <g data-strokes></g>
+          <g class="segni" data-marks>
+            <rect x="321" y="291" width="7" height="7" />
+            <rect x="563" y="193" width="7" height="7" />
+          </g>
+        </svg>
+        <!-- the loading line, which later splits into the two edges of the sheet -->
+        <span class="filo filo--sopra" data-line-top><span class="filo__tratto" data-line-fill></span></span>
+        <span class="filo filo--sotto" data-line-bottom></span>
+        <span class="percento mono" data-pct-wrap><span data-pct>0</span>%</span>
+        <span class="angolo angolo--a" aria-hidden="true"></span><span class="angolo angolo--b" aria-hidden="true"></span>
+        <span class="angolo angolo--c" aria-hidden="true"></span><span class="angolo angolo--d" aria-hidden="true"></span>
+      </div>
+
+      <div class="coda">
+        <section class="scheda mono" data-card aria-label="Loading">
+          <dl class="scheda__dati">
+            <dt class="scheda__titolo">Welcome to Egret</dt>
+            <dt>Type</dt><dd>AI agent for architects</dd>
+            <dt>Founded</dt><dd>2026</dd>
+            <dt>Works in</dt><dd>Your drawing tools</dd>
+          </dl>
+          <ul class="scheda__avvio" data-boot>
+            <li><span>Load the model</span><b>ok</b></li>
+            <li><span>Read the drawings</span><b>ok</b></li>
+            <li><span>Find the levels</span><b>ok</b></li>
+            <li><span>Check the codes</span><b>ok</b></li>
+            <li><span>Measure the stairs</span><b>ok</b></li>
+            <li><span>Check the doors</span><b>ok</b></li>
+            <li><span>Draft the notes</span><b>ok</b></li>
+            <li><span>Start</span><b>ok</b></li>
+          </ul>
+        </section>
+
+        <section class="titolo" data-title-wrap>
+          <h1 class="titolo__riga" data-title>An AI agent that works inside your drawings</h1>
+          <p class="titolo__sotto mono" data-sub>Egret reads your model, flags what breaks the code and fixes it once you say yes.</p>
+        </section>
+      </div>
+    </main>
+
+    <button class="ancora mono" type="button" data-replay aria-label="Play the loading screen again">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8a5 5 0 1 1-1.6-3.7" /><path d="M13 2.6v3.2H9.8" /></svg>
+      <span>Replay</span>
+    </button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/CustomEase.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

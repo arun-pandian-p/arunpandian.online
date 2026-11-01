@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arun Pandian — Full-Stack Software Engineer</title>
+    <meta
+      name="description"
+      content="Arun Pandian is a Full-Stack Software Engineer building reliable web applications with React, TypeScript, Java 21, Spring Boot, REST APIs, and PostgreSQL."
+    />
+    <meta name="author" content="Arun Pandian" />
+    <meta
+      name="keywords"
+      content="Arun Pandian, Full Stack Developer, Java Developer, Spring Boot Developer, React Developer, Software Engineer, Backend Developer, PostgreSQL, Coimbatore"
+    />
+    <link rel="canonical" href="https://arunpandian.online" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://arunpandian.online" />
+    <meta property="og:title" content="Arun Pandian — Full-Stack Software Engineer" />
+    <meta
+      property="og:description"
+      content="Building reliable software, from interface to infrastructure. React, TypeScript, Java 21, Spring Boot, REST APIs, and PostgreSQL."
+    />
+    <meta property="og:site_name" content="Arun Pandian Portfolio" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://arunpandian.online" />
+    <meta name="twitter:title" content="Arun Pandian — Full-Stack Software Engineer" />
+    <meta
+      name="twitter:description"
+      content="Building reliable software, from interface to infrastructure. React, TypeScript, Java 21, Spring Boot, REST APIs, and PostgreSQL."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+
+    <!-- Google Fonts: Inter, JetBrains Mono, Caveat, & Instrument Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme Initialization Script (Prevents FOUC) -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('theme');
+          var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (saved === 'dark' || (!saved && systemDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- JSON-LD Structured Data: Person & WebSite -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://arunpandian.online/#person",
+            "name": "Arun Pandian",
+            "jobTitle": "Full-Stack Software Engineer",
+            "url": "https://arunpandian.online",
+            "sameAs": [
+              "https://github.com/arun-pandian-p",
+              "https://linkedin.com/in/arunpandian-developer/"
+            ],
+            "alumniOf": {
+              "@type": "EducationalOrganization",
+              "name": "B.Tech Artificial Intelligence & Data Science, 2026"
+            },
+            "knowsAbout": [
+              "React",
+              "TypeScript",
+              "Java",
+              "Spring Boot",
+              "REST APIs",
+              "PostgreSQL",
+              "Full-Stack Software Engineering"
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Coimbatore",
+              "addressRegion": "Tamil Nadu",
+              "addressCountry": "India"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://arunpandian.online/#website",
+            "url": "https://arunpandian.online",
+            "name": "Arun Pandian Portfolio",
+            "author": {
+              "@id": "https://arunpandian.online/#person"
+            },
+            "description": "Portfolio of Arun Pandian, Full-Stack Software Engineer specializing in React, Java, Spring Boot, REST APIs, and PostgreSQL."
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="bg-background text-foreground antialiased min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

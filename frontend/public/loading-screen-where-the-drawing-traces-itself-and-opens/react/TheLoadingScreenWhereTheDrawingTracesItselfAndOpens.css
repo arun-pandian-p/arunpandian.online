@@ -1,0 +1,330 @@
+/*
+  "The loading screen where the drawing traces itself and opens" from Animorio · https://animorio.com
+  License: free on your own sites and your clients’ sites, paid work included.
+  Not for resale, redistribution, templates or code collections · https://animorio.com/en/license/
+*/
+/* The loading screen where the drawing traces itself and opens: drawing paper, one ink, warm greys, one orange. */
+:root {
+  --carta: #f3f2ec;          /* the paper of the page */
+  --inchiostro: #282828;     /* the ink of the drawing and the type */
+  --grigio: #b3b3af;         /* the lines once the drawing has opened, and the frame */
+  --grigio-scuro: #72726f;   /* the secondary text */
+  --accento: #f15534;        /* the loading line, the corner marks and the marks on the drawing */
+  --screen: 100vh;
+}
+@supports (height: 100lvh) {
+  :root { --screen: 100lvh; }
+}
+
+* { box-sizing: border-box; }
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+body {
+  background: var(--carta);
+  color: var(--inchiostro);
+  font-family: 'Mona Sans Variable', 'Helvetica Neue', Arial, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+/* the grain of the paper */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .44 0 0 0 0 .4 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.mono {
+  font-family: 'Geist Mono Variable', ui-monospace, Menlo, monospace;
+  font-size: clamp(9px, min(1.05vw, 1.9vh), 12px);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------ the page and its thin frame */
+.pagina {
+  position: relative;
+  height: var(--screen);
+  max-height: 100vh;
+  padding: clamp(12px, 2.4vmin, 24px);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: clamp(8px, 2vh, 18px);
+}
+.pagina::before {
+  content: '';
+  position: absolute;
+  inset: clamp(6px, 1.2vmin, 12px);
+  border: 1px solid rgba(179, 179, 175, 0.6);
+  pointer-events: none;
+}
+.testa {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(4px, 1vw, 10px);
+}
+.marchio {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--inchiostro);
+  text-decoration: none;
+  font-weight: 640;
+  font-size: clamp(13px, min(1.5vw, 2.6vh), 17px);
+  letter-spacing: -0.01em;
+}
+.marchio svg {
+  width: 1.3em;
+  height: 1.3em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.stato {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.3em;
+  color: var(--grigio-scuro);
+}
+.stato__dentro { display: inline-block; }
+
+/* ------------------------------------------------------------ the stage */
+.palco {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 2.4vh, 22px);
+}
+.disegno {
+  --apri: 0;   /* 0 = closed on the loading line, 1 = the full drawing open between the two edges */
+  --p: 0;      /* the loading, 0 to 1 */
+  position: relative;
+  width: min(100%, calc((100vh - 24vh - 120px) * 2), 980px);
+  aspect-ratio: 2 / 1;
+  flex: none;
+}
+.disegno svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.disegno__linee path {
+  fill: none;
+  stroke: var(--inchiostro);
+  stroke-width: var(--tratto, 1.6);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.disegno__pieno {
+  clip-path: inset(calc(50% - 50% * var(--apri)) -2% calc(50% - 50% * var(--apri)) -2%);
+}
+.disegno__pieno [data-strokes] path {
+  fill: none;
+  stroke: var(--inchiostro);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.segni rect { fill: var(--accento); }
+
+/* the loading line: one hairline that grows, then splits into the two edges of the sheet */
+.filo {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  margin-top: -0.75px;
+  pointer-events: none;
+}
+.filo--sopra { top: calc(50% - 50% * var(--apri)); }
+.filo--sotto {
+  top: calc(50% + 50% * var(--apri));
+  background: var(--grigio);
+  opacity: 0;
+}
+.filo__tratto {
+  position: absolute;
+  inset: 0;
+  background: var(--accento);
+  transform: scaleX(var(--p));
+  transform-origin: 0 50%;
+}
+.percento {
+  position: absolute;
+  top: calc(50% + 7px);
+  left: calc(var(--p) * 100%);
+  transform: translateX(calc(-100% * var(--p)));
+  color: var(--accento);
+  white-space: nowrap;
+  font-variant-numeric: normal;
+}
+
+/* the orange corner marks of the sheet, as on a drawing board */
+.angolo {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  opacity: 0;
+}
+.angolo::before,
+.angolo::after {
+  content: '';
+  position: absolute;
+  background: var(--accento);
+}
+.angolo::before { left: 5px; top: 0; width: 1px; height: 11px; }
+.angolo::after { top: 5px; left: 0; height: 1px; width: 11px; }
+.angolo--a { left: -6px; top: -6px; }
+.angolo--b { right: -6px; top: -6px; }
+.angolo--c { left: -6px; bottom: -6px; }
+.angolo--d { right: -6px; bottom: -6px; }
+
+/* ------------------------------------------------------------ under the drawing: the card, then the title in its place */
+.coda {
+  width: min(100%, calc((100vh - 24vh - 120px) * 2), 980px);
+  height: clamp(104px, 20vh, 150px);
+  display: grid;
+  flex: none;
+}
+.scheda,
+.titolo {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+.scheda {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  gap: clamp(10px, 3vw, 40px);
+  align-content: start;
+  color: var(--inchiostro);
+}
+.scheda__dati {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1.6em;
+  row-gap: 0.45em;
+  align-content: start;
+}
+.scheda__dati dt { color: var(--grigio-scuro); }
+.scheda__dati dd { margin: 0; }
+.scheda__titolo {
+  grid-column: 1 / -1;
+  color: var(--inchiostro) !important;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--grigio);
+  margin-bottom: 0.2em;
+}
+.scheda__avvio {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(4, auto);
+  column-gap: 1.6em;
+  row-gap: 0.45em;
+  align-content: start;
+}
+.scheda__avvio li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8em;
+  opacity: 0.25;
+  white-space: nowrap;
+}
+.scheda__avvio li span { overflow: hidden; text-overflow: ellipsis; }
+.scheda__avvio b {
+  font-weight: 400;
+  color: var(--accento);
+  opacity: 0;
+}
+
+.titolo {
+  align-self: start;
+  pointer-events: none;
+}
+.titolo__riga {
+  margin: 0;
+  font-weight: 560;
+  font-stretch: 112%;
+  font-size: clamp(21px, min(4.2vw, 6.6vh), 54px);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  max-width: 17em;
+}
+.parola {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.parola__dentro { display: inline-block; }
+.titolo__sotto {
+  margin: clamp(8px, 1.6vh, 14px) 0 0;
+  color: var(--grigio-scuro);
+  text-transform: none;
+  max-width: 44em;
+  opacity: 0;
+}
+
+/* ------------------------------------------------------------ replay */
+.ancora {
+  position: absolute;
+  right: clamp(14px, 2.6vmin, 26px);
+  bottom: clamp(14px, 2.6vmin, 26px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--grigio);
+  border-radius: 2px;
+  background: var(--carta);
+  color: var(--inchiostro);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: border-color 0.2s, color 0.2s;
+}
+.ancora svg {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.5s cubic-bezier(0.34, 1.6, 0.5, 1);
+}
+.ancora:active { transform: scale(0.96); }
+.ancora:focus-visible { outline: 1px solid var(--accento); outline-offset: 2px; }
+@media (hover: hover) {
+  .ancora:hover { border-color: var(--accento); color: var(--accento); }
+  .ancora:hover svg { transform: rotate(-200deg); }
+}
+
+/* ------------------------------------------------------------ phone */
+@media (max-width: 640px) {
+  .scheda { grid-template-columns: 1fr; gap: 0.7em; }
+  .scheda__dati dt:not(.scheda__titolo),
+  .scheda__dati dd { display: none; }
+  .ancora { padding: 5px 8px; }
+}
+@media (max-height: 360px) {
+  .titolo__sotto { display: none; }
+}

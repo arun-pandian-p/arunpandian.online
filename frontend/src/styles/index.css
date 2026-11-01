@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #faf8f3;
+    --surface: #ffffff;
+    --surface-elevated: #f3efe6;
+    --foreground: #1e293b;
+    --muted-foreground: #64748b;
+    --border: #e6dfd3;
+    --card: #ffffff;
+    --primary: #0f766e;
+    --primary-foreground: #ffffff;
+    --primary-hover: #115e59;
+    --accent: #d97706;
+    --accent-foreground: #ffffff;
+    --input: #e6dfd3;
+    --ring: #0f766e;
+  }
+
+  .dark {
+    --background: #090d16;
+    --surface: #0f1523;
+    --surface-elevated: #161e31;
+    --foreground: #f8fafc;
+    --muted-foreground: #94a3b8;
+    --border: #1e293b;
+    --card: #0f1523;
+    --primary: #38bdf8;
+    --primary-foreground: #090d16;
+    --primary-hover: #0284c7;
+    --accent: #f59e0b;
+    --accent-foreground: #090d16;
+    --input: #1e293b;
+    --ring: #38bdf8;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  /* Code block styling */
+  pre, code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Accessibility: respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Bramus CSS Scroll-Driven Stacking Cards Demo Reference Implementation */
+:root {
+  --numcards: 4;
+  --card-height: 490px;
+}
+
+#cards {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(var(--numcards), var(--card-height));
+  gap: 3.5rem;
+  padding-bottom: 8rem;
+  margin-bottom: 2rem;
+  view-timeline-name: --cards-element-scrolls-in-body;
+}
+
+.card {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: var(--card-height);
+  position: sticky;
+  top: 5.5rem;
+  z-index: var(--index);
+}
+
+.card__content {
+  position: sticky;
+  top: 5.5rem;
+  transform-origin: 50% 0%;
+  will-change: transform;
+}
+
+@supports (animation-timeline: view()) {
+  .card__content {
+    --start-range: calc(var(--index0) / var(--numcards) * 100%);
+    --end-range: calc(var(--index) / var(--numcards) * 100%);
+
+    animation: linear scale-card-down both;
+    animation-timeline: --cards-element-scrolls-in-body;
+    animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+  }
+
+  @keyframes scale-card-down {
+    to {
+      transform: scale(calc(1 - 0.05 * (var(--numcards) - var(--index))));
+      filter: brightness(calc(1 - 0.04 * (var(--numcards) - var(--index))));
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --card-height: 590px;
+  }
+  .card {
+    height: var(--card-height);
+  }
+  .card__content {
+    top: 5rem;
+  }
+}
+
+
+
+/* Hero Sticky Stacking Card Interaction */
+.hero-sticky-container {
+  transform-origin: 50% 0%;
+  will-change: transform, opacity;
+}
+
+@supports (animation-timeline: view()) {
+  .hero-sticky-container {
+    animation: linear scale-hero-card both;
+    animation-timeline: view();
+    animation-range: exit 0% exit 100%;
+  }
+
+  @keyframes scale-hero-card {
+    to {
+      transform: scale(0.96);
+      filter: brightness(0.95);
+      opacity: 0.88;
+    }
+  }
+}
