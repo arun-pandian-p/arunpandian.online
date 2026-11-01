@@ -8,9 +8,9 @@ export function useTheme() {
       if (stored === 'light' || stored === 'dark') {
         return stored;
       }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return 'light';
     }
-    return 'dark';
+    return 'light';
   });
 
   useEffect(() => {
