@@ -1,0 +1,184 @@
+/* The Melting Sheet — Theme-Adaptive Pre-Footer Transition for Arun Pandian Portfolio */
+
+.melting-scena {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  height: 230vh;
+  margin-top: 4rem;
+}
+
+.melting-palco {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background: #080d1a;
+}
+
+.melting-fotogramma {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.melting-tela {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.melting-frase {
+  position: absolute;
+  left: clamp(20px, 5vw, 64px);
+  right: clamp(20px, 5vw, 64px);
+  bottom: 10%;
+  display: grid;
+  margin: 0;
+  color: #fff7ed;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(2.4rem, 1rem + 6.2vw, 7.5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+  pointer-events: none;
+  user-select: none;
+}
+
+.melting-frase span:last-child {
+  justify-self: end;
+  color: #fde047;
+}
+
+/* The melting sheet: covers the canvas, clipped by dynamic marching-squares SVG path */
+.melting-foglio {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: clamp(14px, 2vw, 24px);
+  padding: clamp(24px, 5vw, 56px);
+  background: #edeae3;
+  color: #151412;
+  text-align: center;
+  will-change: clip-path;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  user-select: none;
+}
+
+.dark .melting-foglio {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+.melting-nota {
+  justify-self: start;
+  max-width: 45ch;
+  margin: 0 0 clamp(8px, 2.5vh, 28px);
+  color: #64748b;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(0.75rem, 0.7rem + 0.2vw, 0.85rem);
+  line-height: 1.4;
+  text-align: left;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dark .melting-nota {
+  color: #94a3b8;
+}
+
+.melting-titolo {
+  margin: 0;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(3.5rem, 1.2rem + 11vw, 12rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: inherit;
+}
+
+.melting-crediti {
+  display: grid;
+  width: min(780px, 100%);
+  margin: 0;
+  border-top: 1px solid rgba(21, 20, 18, 0.2);
+}
+
+.dark .melting-crediti {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.melting-crediti-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(21, 20, 18, 0.15);
+}
+
+.dark .melting-crediti-row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.melting-dt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.dark .melting-dt {
+  color: #38bdf8;
+}
+
+.melting-dd {
+  margin: 0;
+  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1.05rem);
+  font-weight: 500;
+  color: inherit;
+}
+
+.melting-azioni {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 10px 0 0;
+}
+
+.melting-tasto {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 24px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+  color: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.16s ease-out;
+}
+
+.melting-tasto:hover {
+  background: currentColor;
+  color: #edeae3;
+}
+
+.dark .melting-tasto:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.melting-tasto:active {
+  transform: scale(0.97);
+}
