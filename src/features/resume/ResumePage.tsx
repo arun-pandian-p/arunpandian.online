@@ -7,8 +7,11 @@ import { experiences } from '../../data/experience';
 import { projects } from '../../data/projects';
 import { skillGroups } from '../../data/skills';
 import { PageTransition } from '../../components/layout/PageTransition';
+import { useResume } from '../../context/ResumeContext';
 
 export const ResumePage: React.FC = () => {
+  const { resumeUrl, resumeFilename } = useResume();
+
   const handlePrint = () => {
     window.print();
   };
@@ -35,8 +38,8 @@ export const ResumePage: React.FC = () => {
               <span>Print</span>
             </button>
             <a
-              href=".\frontend\public\Arun_Pandian_P.pdf"
-              download="Arun_Pandian_Resume.pdf"
+              href={resumeUrl}
+              download={resumeFilename}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -119,72 +122,23 @@ export const ResumePage: React.FC = () => {
 
           {/* Experience Section */}
           <div>
-            <h2 className="text-xs uppercase font-mono tracking-wider font-bold text-primary mb-4">
-              Professional Experience
+            <h2 className="text-xs uppercase font-mono tracking-wider font-bold text-primary mb-6">
+              Engineering Experience
             </h2>
-            <div className="space-y-6">
+            <div className="space-y-8">
               {experiences.map((exp) => (
-                <div key={exp.id} className="space-y-2">
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1">
+                <div key={exp.id} className="space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                     <div>
                       <h3 className="text-base font-bold text-foreground">{exp.role}</h3>
                       <p className="text-sm font-semibold text-primary">{exp.company}</p>
                     </div>
-                    <div className="text-xs font-mono text-muted-foreground flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {exp.period} | {exp.location}
-                    </div>
+                    <span className="text-xs font-mono text-muted-foreground">{exp.period}</span>
                   </div>
-                  <ul className="list-disc list-inside space-y-1.5 text-xs text-muted-foreground pl-1">
-                    {exp.achievements.map((ach, idx) => (
-                      <li key={idx} className="leading-relaxed">
-                        <span className="text-foreground">{ach}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Featured Projects Section */}
-          <div>
-            <h2 className="text-xs uppercase font-mono tracking-wider font-bold text-primary mb-4">
-              Featured Software Engineering Projects
-            </h2>
-            <div className="space-y-6">
-              {projects.map((proj) => (
-                <div key={proj.slug} className="space-y-2">
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1">
-                    <div>
-                      <h3 className="text-base font-bold text-foreground flex items-center gap-2">
-                        {proj.title}
-                        {proj.githubUrl && (
-                          <a
-                            href={proj.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-muted-foreground hover:text-foreground inline-flex items-center"
-                            aria-label="GitHub link"
-                          >
-                            <ExternalLink className="w-3.5 h-3.5" />
-                          </a>
-                        )}
-                      </h3>
-                      <span className="text-xs font-mono text-primary font-medium">
-                        {proj.techStack.join(' • ')}
-                      </span>
-                    </div>
-                    <span className="text-xs font-mono text-muted-foreground">
-                      {proj.status}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {proj.solution}
-                  </p>
+                  <p className="text-xs text-muted-foreground">{exp.description}</p>
                   <ul className="list-disc list-inside space-y-1 text-xs text-muted-foreground pl-1">
-                    {proj.keyFeatures.slice(0, 3).map((f, i) => (
-                      <li key={i}>{f}</li>
+                    {exp.achievements.map((item, i) => (
+                      <li key={i}>{item}</li>
                     ))}
                   </ul>
                 </div>
@@ -195,14 +149,58 @@ export const ResumePage: React.FC = () => {
           {/* Technical Skills Section */}
           <div>
             <h2 className="text-xs uppercase font-mono tracking-wider font-bold text-primary mb-4">
-              Technical Skills
+              Technical Arsenal
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {skillGroups.map((group) => (
-                <div key={group.category} className="space-y-1">
-                  <h4 className="font-bold text-foreground font-mono">{group.category}</h4>
-                  <p className="text-muted-foreground">
-                    {group.skills.map((s) => s.name).join(', ')}
+                <div key={group.category} className="space-y-2">
+                  <h3 className="text-xs font-bold text-foreground uppercase tracking-wide">
+                    {group.category}
+                  </h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {group.skills.map((s) => s.name).join(' · ')}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Key Projects Section */}
+          <div>
+            <h2 className="text-xs uppercase font-mono tracking-wider font-bold text-primary mb-4">
+              Selected Software Projects
+            </h2>
+            <div className="space-y-4">
+              {projects.map((proj) => (
+                <div key={proj.slug} className="p-4 rounded-xl bg-surface-elevated border border-border/80 space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-bold text-foreground">{proj.title}</h3>
+                    <div className="flex items-center gap-2">
+                      {proj.liveUrl && (
+                        <a
+                          href={proj.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-mono text-primary hover:underline inline-flex items-center gap-1"
+                        >
+                          Demo <ExternalLink className="w-3 h-3" />
+                        </a>
+                      )}
+                      {proj.githubUrl && (
+                        <a
+                          href={proj.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-mono text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+                        >
+                          Code <Github className="w-3 h-3" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground">{proj.shortDescription}</p>
+                  <p className="text-[11px] font-mono text-primary pt-1">
+                    Stack: {proj.techStack.join(', ')}
                   </p>
                 </div>
               ))}
@@ -213,4 +211,3 @@ export const ResumePage: React.FC = () => {
     </PageTransition>
   );
 };
-

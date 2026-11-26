@@ -1,4 +1,4 @@
-import{r as S}from"./react-vendor-BBG8HanM.js";var fe={exports:{}},bt={};/**
+import{r as S}from"./react-vendor-Bubx56XY.js";var fe={exports:{}},bt={};/**
  * @license React
  * react-jsx-runtime.production.js
  *

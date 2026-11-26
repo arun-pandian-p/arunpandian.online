@@ -3,11 +3,13 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Menu, X, Download } from 'lucide-react';
 import { navItems } from '../../data/navigation';
 import { ThemeToggle } from '../ui/ThemeToggle';
+import { useResume } from '../../context/ResumeContext';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const { resumeUrl, resumeFilename } = useResume();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -85,11 +87,12 @@ export const Navbar: React.FC = () => {
         {/* Right CTA Button & Theme Switcher */}
         <div className="flex items-center gap-3">
           <a
-            href="./Arun_Pandian_P.pdf"
-            download="./frontend/public/Arun_Pandian_P.pdf"
+            href={resumeUrl}
+            download={resumeFilename}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium text-xs sm:text-sm hover:bg-primary-hover shadow-xs transition-colors"
+            title="Download Arun Pandian Resume"
           >
             <span>Resume</span>
             <Download className="w-3.5 h-3.5" />
@@ -131,8 +134,8 @@ export const Navbar: React.FC = () => {
           ))}
           <div className="pt-3 border-t border-border flex flex-col gap-3">
             <a
-              href="/resume.pdf"
-              download="Arun_Pandian_Resume.pdf"
+              href={resumeUrl}
+              download={resumeFilename}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-lg bg-primary text-primary-foreground font-medium text-sm text-center shadow-xs"
